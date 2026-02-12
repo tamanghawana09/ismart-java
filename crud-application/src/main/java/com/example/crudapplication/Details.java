@@ -1,20 +1,26 @@
 package com.example.crudapplication;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 
-public class Details {
+@Entity
+@Table(name ="details")
+public class Details{
 
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String name;
 
+    @Version
+    private Integer version;
+    public Details(){}
     // Constructor
-    public Details(int id, String name){
+    public Details(Integer id, String name){
         this.id = id;
         this.name = name;
     }
-    public int getId(){
+    //getters & setters
+    public Integer getId(){
         return id;
     }
     public void setId(int id){
