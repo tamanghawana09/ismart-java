@@ -1,8 +1,6 @@
 package com.example.crudapplication;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -15,7 +13,8 @@ import java.util.List;
 public class HomeController {
 
     @Autowired
-    private CrudRepository crudRepository;
+//    private CrudRepository crudRepository;
+    private DetailsService detailsService;
 
 //    private List<Details> detailsList = new ArrayList<>();
 
@@ -23,7 +22,8 @@ public class HomeController {
     @GetMapping("/details")
     public List<Details> getAllDetails(){
 //        return detailsList;
-        return crudRepository.findAll();
+//        return crudRepository.findAll();
+        return detailsService.getAllDetails();
     }
 
     //POST API -> add new details
@@ -31,13 +31,15 @@ public class HomeController {
     @ResponseStatus(HttpStatus.CREATED)
     public String addDetails(@RequestBody Details details){
 //        detailsList.add(details);
-        crudRepository.save(details);
+//        crudRepository.save(details);
+
+        detailsService.addDetails(details);
         return "Data Inserted successfully";
     }
 
     //PUT API -> Update Detail by ID
     @PutMapping("/details/{id}")
-    public String updateDetails(@PathVariable int id, @RequestBody Details updateDetails){
+    public String updateDetails(@PathVariable int id, @RequestBody Details details){
 //        for(Details details : detailsList){
 //            if(details.getId() == id){
 //                details.setName(updateDetails.getName());
@@ -45,10 +47,11 @@ public class HomeController {
 //            }
 //        }
 
-        Details details = crudRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Name not found"));
-        details.setName(updateDetails.getName());
-
-         crudRepository.save(details);
+//        Details details = crudRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Name not found"));
+//        details.setName(updateDetails.getName());
+//
+//         crudRepository.save(details);
+        detailsService.updateDetails(id,details);
          return " Data updated successfully";
 //        return "!!! Detail not found!!!";
     }
@@ -61,9 +64,10 @@ public class HomeController {
 //        return "Data deleted successfully";
 //    }
     public void deleteDetails(@PathVariable int id){
-        if(!crudRepository.existsById(id)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Details not found");
-        }
-        crudRepository.deleteById(id);
+//        if(!crudRepository.existsById(id)){
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Details not found");
+//        }
+//        crudRepository.deleteById(id);
+        detailsService.deleteDetails(id);
     }
 }
