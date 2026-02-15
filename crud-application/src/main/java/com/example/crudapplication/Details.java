@@ -15,15 +15,14 @@ public class Details{
     private Integer version;
     public Details(){}
     // Constructor
-    public Details(Integer id, String name){
-        this.id = id;
+    public Details(String name){
         this.name = name;
     }
     //getters & setters
     public Integer getId(){
         return id;
     }
-    public void setId(int id){
+    public void setId(Integer id){
         this.id = id;
     }
     public String getName(){
