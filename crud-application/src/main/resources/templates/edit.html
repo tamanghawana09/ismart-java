@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Student</title>
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.8/css/bootstrap.min.css}">
+</head>
+<body>
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Edit Student</h1>
+
+    <form th:action="@{/update/{id}(id=${student.id})}" method="post" class="needs-validation" novalidate>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+        <div class="mb-3">
+            <label class="form-label">Student ID:</label>
+            <span class="form-control-plaintext" th:text="${student.id}"></span>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="fname" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="fname" name="fname" th:value="${student.fname}" required>
+            </div>
+            <div class="col-md-6">
+                <label for="lname" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="lname" name="lname" th:value="${student.lname}" required>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" th:value="${student.email}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="number" class="form-label">Phone Number</label>
+            <input type="text" class="form-control" id="number" name="number" th:value="${student.number}">
+        </div>
+
+        <div class="mb-3">
+            <label for="birthdate" class="form-label">Date of Birth</label>
+            <input type="date" class="form-control" id="birthdate" name="birthdate" th:value="${student.birthdate}">
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="markssee" class="form-label">SEE Marks</label>
+                <input type="number" step="0.01" class="form-control" id="markssee" name="markssee" th:value="${student.markssee}">
+            </div>
+            <div class="col-md-6">
+                <label for="marksPlus2" class="form-label">Plus2 Marks</label>
+                <input type="number" step="0.01" class="form-control" id="marksPlus2" name="marksPlus2" th:value="${student.marksPlus2}">
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="course" class="form-label">Course</label>
+            <input type="text" class="form-control" id="course" name="course" th:value="${student.course}">
+        </div>
+
+        <div class="mb-3">
+            <label for="gender" class="form-label">Gender</label>
+            <input type="text" class="form-control" id="gender" name="gender" th:value="${student.gender}">
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg">Update Student</button>
+        </div>
+    </form>
+
+    <div class="text-center mt-3">
+        <a href="/list" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>
+
+
+<script th:src="@{/webjars/bootstrap/5.3.8/js/bootstrap.bundle.min.js}"></script>
+
+
+</body>
+</html>
