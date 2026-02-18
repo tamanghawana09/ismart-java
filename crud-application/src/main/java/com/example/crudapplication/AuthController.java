@@ -12,9 +12,6 @@ public class AuthController {
     private UserRepository userRepository;
 
     @Autowired
-    private StudentRepository studentRepository;
-
-    @Autowired
     private StudentsService studentsService;
 
     @Autowired
@@ -36,11 +33,12 @@ public class AuthController {
     }
     @PostMapping("/saveUser")
     public String saveUser(@RequestParam String username,
-                           @RequestParam String password) {
+                           @RequestParam String password, @RequestParam String email) {
 
         Users user = new Users(
                 username,
-                passwordEncoder.encode(password)
+                passwordEncoder.encode(password),
+                email
         );
 
         userRepository.save(user);

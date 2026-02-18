@@ -11,6 +11,7 @@ public class Users {
     private Long id;
     private String username;
     private String password;
+    private String email;
 
     @Version
     private Integer version;
@@ -18,9 +19,10 @@ public class Users {
     public Users(){}
 
     //Constructor
-    public Users(String username,String password){
+    public Users(String username,String password,String email){
         this.username = username;
         this.password = password;
+        this.email = email;
     }
 
     //getters & setters
@@ -43,4 +45,6 @@ public class Users {
     public void setPassword( String password){
         this.password = password;
     }
+    public String getEmail(){ return email; }
+    public void setEmail(String email){this.email = email; }
 }

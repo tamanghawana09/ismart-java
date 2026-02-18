@@ -29,6 +29,7 @@ public class SecurityConfiguration {
 
                 .formLogin(form->form
                         .loginPage("/login")
+                        .usernameParameter("email")
                         .defaultSuccessUrl("/dashboard",true)
                         .permitAll()
                 )
