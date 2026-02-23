@@ -7,10 +7,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CustomerUserDetailsService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
+
+    //Save User Information
+    public Users saveUsers(Users user){
+        return userRepository.save(user);
+    }
+
+    //fetch all users
+    public List<Users> getAllStudents(){ return userRepository.findAll(); }
 
     @Override
     public UserDetails loadUserByUsername(String email)
@@ -21,6 +31,7 @@ public class CustomerUserDetailsService implements UserDetailsService {
         return User.builder()
                 .username(user.getEmail())
                 .password(user.getPassword())
+                .roles(user.getRole())
                 .build();
     }
 }
