@@ -37,7 +37,6 @@ public class StudentsService {
     }
 
     //update student
-
     public Students updateStudent(Integer id, Students updatedStudent){
         return studentRepository.findById(id)
                 .map(student -> {
