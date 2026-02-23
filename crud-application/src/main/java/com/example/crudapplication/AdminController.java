@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -28,7 +30,10 @@ public class AdminController {
     public String adminRegister(){ return "admin-register"; }
 
     @GetMapping("/dashboard")
-    public String dashboardAdmin(){ return "dashboard-admin";}
+    public String dashboardAdmin(Model model, Principal principal){
+        model.addAttribute("username",principal.getName());
+        return "dashboard-admin";
+    }
 
     @PostMapping("/save")
     public String saveAdmin(@RequestParam String username, @RequestParam String password,
