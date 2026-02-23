@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.8/css/bootstrap.min.css}">
+</head>
+<body>
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Welcome to Dashboard</h1>
+
+    <p>Logged in as: <span th:text="${username}"></span></p>
+    <div class="row g-4 justify-content-center">
+        <!-- View Users Button -->
+        <div class="col-md-3 d-grid">
+            <a href="/admin/list-user" class="btn btn-primary btn-lg shadow-sm">View Users</a>
+        </div>
+
+        <!-- Add Student Button -->
+        <div class="col-md-3 d-grid">
+            <a href="/admin/new-user" class="btn btn-success btn-lg shadow-sm">Add Student</a>
+        </div>
+
+        <!-- Edit Student Button -->
+        <div class="col-md-3 d-grid">
+            <a href="/admin/edit-user/" class="btn btn-warning btn-lg shadow-sm text-dark">Edit Student</a>
+        </div>
+
+        <!-- Delete Student Button -->
+        <div class="col-md-3 d-grid">
+            <a href="/admin/delete-user/" class="btn btn-danger btn-lg shadow-sm">Delete Student</a>
+        </div>
+    </div>
+
+    <div class="text-center mt-5">
+        <form th:action="@{/admin/logout}" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <button type="submit" class="btn btn-outline-secondary btn-lg">Logout</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

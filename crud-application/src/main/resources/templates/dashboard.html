@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title>Dashboard</title>
@@ -12,6 +12,7 @@
 <div class="container my-5">
   <h1 class="text-center mb-4">Welcome to Dashboard</h1>
 
+<p>Logged in as: <span th:text="${username}"></span></p>
   <div class="row g-4 justify-content-center">
     <!-- View Students Button -->
     <div class="col-md-3 d-grid">
@@ -30,7 +31,7 @@
 
     <!-- Delete Student Button -->
     <div class="col-md-3 d-grid">
-      <a href="/delete" class="btn btn-danger btn-lg shadow-sm">Delete Student</a>
+      <a href="/list" class="btn btn-danger btn-lg shadow-sm">Delete Student</a>
     </div>
   </div>
 

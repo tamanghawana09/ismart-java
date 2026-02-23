@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Register</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.8/css/bootstrap.min.css}">
+    <style>
+        body {
+            background-color: #f0f2f5;
+        }
+        .admin-register-card {
+            max-width: 400px;
+            margin: 80px auto;
+            padding: 40px;
+            border-radius: 12px;
+            background-color: #ffffff;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        .admin-register-card  h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        .btn-lg {
+            border-radius: 50px;
+        }
+    </style>
+</head>
+<body>
+<div class="admin-register-card">
+    <h1>Admin Register</h1>
+    <form th:action="@{/admin/save}" method="post">
+        <div class="form-floating mb-3">
+            <label for="username">Username</label>
+            <input type="text" name="username" class="form-control" id="username" required/>
+        </div>
+        <div class="form-floating mb-3">
+            <label for="email">Email</label>
+            <input type="email" name="email" class="form-control" id="email" required/>
+        </div>
+        <div class="form-floating mb-3">
+            <label for="password">Password</label>
+            <input type="password" name="password" class="form-control" id="password" required />
+        </div>
+        <div class="d-grid mb-3">
+            <button type="submit" class="btn btn-success btn-lg">Register</button>
+        </div>
+    </form>
+    <div class="text-center">
+        <p>Already have an account?
+            <a th:href="@{/admin/login}">Login here</a>
+        </p>
+    </div>
+</div>
+<script th:src="@{/webjars/bootstrap/5.3.8/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
