@@ -2,6 +2,7 @@ package com.example.crudapplication;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,6 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 
 @Configuration
+@Order(1)
 @EnableMethodSecurity
 public class SecurityConfiguration {
 
@@ -20,20 +22,31 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, CustomerUserDetailsService customerUserDetailsService) throws Exception{
         http
+                .securityMatcher("/**")
+                .userDetailsService(customerUserDetailsService)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/","/register","/saveUser","/login").permitAll()
+                        // public endpoints
+                        .requestMatchers("/","/login","/register","/saveUser").permitAll()
+                        .requestMatchers("/dashboard/**").hasRole("USER")
                         .anyRequest().authenticated()
                 )
 
                 .formLogin(form->form
                         .loginPage("/login")
                         .usernameParameter("email")
-                        .defaultSuccessUrl("/dashboard",true)
+                        .passwordParameter("password")
+                        .successHandler((request,response,authentication) ->{
+                            response.sendRedirect("/dashboard");
+                        })
                         .permitAll()
                 )
-                .logout(logout -> logout.permitAll());
+
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/login")
+                        .permitAll()
+                );
 
         return http.build();
     }
