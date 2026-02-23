@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @Controller
 public class AuthController {
     @Autowired
@@ -16,6 +18,9 @@ public class AuthController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private CustomerUserDetailsService customerUserDetailsService;
+
 
     @GetMapping("/")
     public String index(){ return "index"; }
@@ -27,18 +32,22 @@ public class AuthController {
     public String registerForm(){
         return "register";
     }
+
+
     @GetMapping("/dashboard")
-    public String dashboard(){
+    public String dashboard(Model model, Principal principal){
+        model.addAttribute("username",principal.getName());
         return "dashboard";
     }
     @PostMapping("/saveUser")
-    public String saveUser(@RequestParam String username,
-                           @RequestParam String password, @RequestParam String email) {
+    public String saveUser(@RequestParam String username, @RequestParam String password,
+                           @RequestParam String email) {
 
         Users user = new Users(
                 username,
                 passwordEncoder.encode(password),
-                email
+                email,
+                "USER"
         );
 
         userRepository.save(user);
@@ -53,6 +62,7 @@ public class AuthController {
         model.addAttribute("students", studentsService.getAllStudents());
         return "list";
     }
+
 
     // Show add form
     @GetMapping("/new")
