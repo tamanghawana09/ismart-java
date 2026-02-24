@@ -2,6 +2,8 @@ package com.example.crudapplication;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 public class Users {
@@ -13,11 +15,14 @@ public class Users {
     private String password;
     private String email;
     private String role;
-    private Long studentAdded;
+
 
 
     @Version
     private Integer version;
+
+    @OneToMany(mappedBy = "user")
+    private List<Students> students;
 
     public Users(){}
 
@@ -56,6 +61,4 @@ public class Users {
     public void setRole(String role){this.role = role;}
 
 
-//    public Long getStudentAdded(){return studentAdded;}
-//    public void setStudentAdded(Long studentAdded){this.studentAdded = studentAdded;}
 }
