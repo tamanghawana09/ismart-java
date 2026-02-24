@@ -22,6 +22,10 @@ public class Students {
     @Version
     private Integer version;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private Users user;
+
     //Empty constructor for JPA
     public Students(){}
 
@@ -60,5 +64,8 @@ public class Students {
     public String getGender(){return gender;}
     public void setGender(String gender){this.gender = gender;}
 
-
+    public Users getUser(){ return user; }
+    public void setUser(Users user) {
+        this.user = user;
+    }
 }

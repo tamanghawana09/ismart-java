@@ -60,5 +60,11 @@ public class Users {
     public String getRole(){ return role;}
     public void setRole(String role){this.role = role;}
 
+    public List<Students> getStudents() {
+        return students;
+    }
 
+    public void setStudents(List<Students> students) {
+        this.students = students;
+    }
 }

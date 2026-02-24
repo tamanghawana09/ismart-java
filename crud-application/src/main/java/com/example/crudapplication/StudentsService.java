@@ -1,6 +1,8 @@
 package com.example.crudapplication;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +16,8 @@ public class StudentsService {
     private StudentRepository studentRepository;
 
     private String emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}";
+    @Autowired
+    private UserRepository userRepository;
 
     public static boolean valEmail(String email, String emailRegex){
         Pattern emailPat = Pattern.compile(emailRegex,Pattern.CASE_INSENSITIVE);
@@ -23,6 +27,16 @@ public class StudentsService {
 
     //save student information
     public Students saveStudent(Students student){
+        Authentication auth = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+
+        String username  = auth.getName();
+        Users user = userRepository.findByEmail(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        student.setUser(user);
+
         return studentRepository.save(student);
     }
 
@@ -38,8 +52,18 @@ public class StudentsService {
 
     //update student
     public Students updateStudent(Integer id, Students updatedStudent){
+
+        Authentication auth = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+        String username = auth.getName();
+
         return studentRepository.findById(id)
                 .map(student -> {
+
+                    if(!student.getUser().getUsername().equals(username)){
+                        throw new RuntimeException("Unauthorized access");
+                    }
                     student.setFname(updatedStudent.getFname());
                     student.setLname(updatedStudent.getLname());
                     student.setEmail(updatedStudent.getEmail());
