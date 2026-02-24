@@ -22,7 +22,6 @@
         <th>Email</th>
         <th>Password</th>
         <th>Role</th>
-        <th>Students Added</th>
         <th>Options</th>
       </tr>
       </thead>
@@ -33,7 +32,6 @@
         <td th:text="${user.email}"></td>
         <td th:text="${user.password}"></td>
         <td th:text="${user.role}"></td>
-        <td> No of Students Added</td>
         <td>
           <a th:href="@{/admin/edit-user/{id}(id=${user.id})}"  class="btn btn-warning btn-sm mb-1">Edit</a>
           <a th:href="@{/admin/delete-user/{id}(id=${user.id})}"  class="btn btn-danger btn-sm mb-1">Delete</a>
