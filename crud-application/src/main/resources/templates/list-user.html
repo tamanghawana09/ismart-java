@@ -20,9 +20,8 @@
         <th>ID</th>
         <th>User</th>
         <th>Email</th>
-        <th>Password</th>
         <th>Role</th>
-        <th>No of students added</th>
+        <th>Students Added</th>
         <th>Options</th>
       </tr>
       </thead>
@@ -31,11 +30,11 @@
         <td th:text="${user.id}"></td>
         <td th:text="${user.username}"></td>
         <td th:text="${user.email}"></td>
-        <td th:text="${user.password}"></td>
         <td th:text="${user.role}"></td>
         <td th:text="${#lists.size(user.students)}"></td>
 
         <td>
+          <a th:href="@{/admin/list-students/{id}(id=${user.id})}" class="btn btn-info btn-sm mb-1">Show</a>
           <a th:href="@{/admin/edit-user/{id}(id=${user.id})}"  class="btn btn-warning btn-sm mb-1">Edit</a>
           <a th:href="@{/admin/delete-user/{id}(id=${user.id})}"  class="btn btn-danger btn-sm mb-1">Delete</a>
         </td>

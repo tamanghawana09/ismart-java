@@ -1,8 +1,10 @@
 package com.example.crudapplication.Controller;
 
+import com.example.crudapplication.Entities.Students;
 import com.example.crudapplication.Repository.AdminRepository;
 import com.example.crudapplication.Entities.Admin;
 import com.example.crudapplication.Entities.Users;
+import com.example.crudapplication.Service.StudentsService;
 import com.example.crudapplication.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -24,6 +27,8 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private StudentsService studentsService;
 
     //Admin Controller Logic
     @GetMapping("/login")
@@ -91,5 +96,16 @@ public class AdminController {
         return "redirect:/admin/list-user";
     }
 
+    //User to students mapping
+    @GetMapping("/list-students/{userId}")
+    public String listStudents(@PathVariable Long userId, Model model,Principal principal ){
+        Users targetUser = userService.getUserById(userId)
+                        .orElseThrow(() -> new RuntimeException("User not found"));
+        List<Students> student = studentsService.getStudentsByUserId(userId);
+        model.addAttribute("student", student);
+        model.addAttribute("targetUser", targetUser);
+        model.addAttribute("username",principal.getName());
+        return "list-students";
+    }
 
 }

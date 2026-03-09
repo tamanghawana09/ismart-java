@@ -91,4 +91,8 @@ public class StudentsService {
             throw new RuntimeException("Student not found with id" + id);
         }
     }
+
+    public List<Students> getStudentsByUserId(Long userId){
+        return studentRepository.findByUserId(userId);
+    }
 }

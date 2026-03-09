@@ -5,6 +5,7 @@ import com.example.crudapplication.Entities.Users;
 import com.example.crudapplication.Service.CustomerUserDetailsService;
 import com.example.crudapplication.Service.StudentsService;
 import com.example.crudapplication.Repository.UserRepository;
+import com.example.crudapplication.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class AuthController {
@@ -25,6 +27,8 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private CustomerUserDetailsService customerUserDetailsService;
+    @Autowired
+    private UserService userService;
 
 
     @GetMapping("/")
@@ -63,8 +67,14 @@ public class AuthController {
     //Student details controller
 
     @GetMapping("/list")
-    public String listStudents(Model model){
-        model.addAttribute("students", studentsService.getAllStudents());
+    public String listStudents(Model model, Principal principal){
+        String email = principal.getName();
+
+        Users user = userService.getUserByEmail(email)
+                        .orElseThrow(() -> new RuntimeException("User not found"));
+
+        List<Students> students = studentsService.getStudentsByUserId(user.getId());
+        model.addAttribute("students", students);
         return "list";
     }
 
@@ -104,5 +114,6 @@ public class AuthController {
         studentsService.deleteStudent(id);
         return "redirect:/list";
     }
+
 
 }

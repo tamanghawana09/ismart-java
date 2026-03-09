@@ -78,4 +78,8 @@ public class UserService {
             throw new RuntimeException("user not found with id" + id);
         }
     }
+    public Optional<Users> getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
 }
