@@ -1,5 +1,9 @@
-package com.example.crudapplication;
+package com.example.crudapplication.Service;
 
+import com.example.crudapplication.Entities.Students;
+import com.example.crudapplication.Entities.Users;
+import com.example.crudapplication.Repository.StudentRepository;
+import com.example.crudapplication.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

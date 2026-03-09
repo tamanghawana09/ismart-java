@@ -1,13 +1,14 @@
-package com.example.crudapplication;
+package com.example.crudapplication.Service;
 
 
+import com.example.crudapplication.Entities.Users;
+import com.example.crudapplication.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

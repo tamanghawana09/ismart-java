@@ -1,5 +1,6 @@
-package com.example.crudapplication;
+package com.example.crudapplication.Configuration;
 
+import com.example.crudapplication.Service.AdminService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;

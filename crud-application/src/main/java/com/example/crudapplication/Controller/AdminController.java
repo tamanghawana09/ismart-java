@@ -1,6 +1,9 @@
-package com.example.crudapplication;
+package com.example.crudapplication.Controller;
 
-import org.apache.catalina.User;
+import com.example.crudapplication.Repository.AdminRepository;
+import com.example.crudapplication.Entities.Admin;
+import com.example.crudapplication.Entities.Users;
+import com.example.crudapplication.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;

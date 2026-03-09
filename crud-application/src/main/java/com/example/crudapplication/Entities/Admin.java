@@ -1,4 +1,4 @@
-package com.example.crudapplication;
+package com.example.crudapplication.Entities;
 
 import jakarta.persistence.*;
 

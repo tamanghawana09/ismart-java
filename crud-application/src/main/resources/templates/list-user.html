@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>User list</title>
-  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.8/css/bootstrap.min.css}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container my-5">
@@ -22,6 +22,7 @@
         <th>Email</th>
         <th>Password</th>
         <th>Role</th>
+        <th>No of students added</th>
         <th>Options</th>
       </tr>
       </thead>
@@ -32,6 +33,8 @@
         <td th:text="${user.email}"></td>
         <td th:text="${user.password}"></td>
         <td th:text="${user.role}"></td>
+        <td th:text="${#lists.size(user.students)}"></td>
+
         <td>
           <a th:href="@{/admin/edit-user/{id}(id=${user.id})}"  class="btn btn-warning btn-sm mb-1">Edit</a>
           <a th:href="@{/admin/delete-user/{id}(id=${user.id})}"  class="btn btn-danger btn-sm mb-1">Delete</a>

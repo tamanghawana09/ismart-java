@@ -1,14 +1,15 @@
-package com.example.crudapplication;
+package com.example.crudapplication.Service;
 
+import com.example.crudapplication.Repository.AdminRepository;
+import com.example.crudapplication.Entities.Admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import java.util.*;
+
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AdminService implements UserDetailsService {

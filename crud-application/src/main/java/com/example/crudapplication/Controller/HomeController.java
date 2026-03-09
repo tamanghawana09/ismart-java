@@ -1,11 +1,11 @@
-package com.example.crudapplication;
+package com.example.crudapplication.Controller;
 
+import com.example.crudapplication.Entities.Details;
+import com.example.crudapplication.Service.DetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
