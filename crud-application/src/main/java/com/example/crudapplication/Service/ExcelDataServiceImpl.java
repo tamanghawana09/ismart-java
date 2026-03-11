@@ -15,9 +15,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,5 +75,49 @@ public class ExcelDataServiceImpl implements ExcelDataService {
         students.forEach(s -> s.setUser(currentUser));
         studentRepository.saveAll(students);
         return students.size();
+    }
+    @Override
+    public ByteArrayInputStream exportStudentsToExcel(String username) {
+
+        List<Students> students = studentRepository.findByUserUsername(username);
+
+        try (Workbook workbook = new XSSFWorkbook();
+             ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+
+            Sheet sheet = workbook.createSheet("Students");
+
+            Row header = sheet.createRow(0);
+            header.createCell(0).setCellValue("First Name");
+            header.createCell(1).setCellValue("Last Name");
+            header.createCell(2).setCellValue("Email");
+            header.createCell(3).setCellValue("Phone");
+            header.createCell(4).setCellValue("Birthdate");
+            header.createCell(5).setCellValue("SEE Marks");
+            header.createCell(6).setCellValue("+2 Marks");
+            header.createCell(7).setCellValue("Course");
+            header.createCell(8).setCellValue("Gender");
+
+            int rowIdx = 1;
+
+            for (Students s : students) {
+                Row row = sheet.createRow(rowIdx++);
+
+                row.createCell(0).setCellValue(s.getFname());
+                row.createCell(1).setCellValue(s.getLname());
+                row.createCell(2).setCellValue(s.getEmail());
+                row.createCell(3).setCellValue(s.getNumber());
+                row.createCell(4).setCellValue(s.getBirthdate());
+                row.createCell(5).setCellValue(s.getMarkssee());
+                row.createCell(6).setCellValue(s.getMarksPlus2());
+                row.createCell(7).setCellValue(s.getCourse());
+                row.createCell(8).setCellValue(s.getGender());
+            }
+
+            workbook.write(out);
+            return new ByteArrayInputStream(out.toByteArray());
+
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to export data to Excel", e);
+        }
     }
 }
