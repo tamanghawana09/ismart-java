@@ -23,7 +23,7 @@ public class Students {
     private Integer version;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = true)
     private Users user;
 
     //Empty constructor for JPA
