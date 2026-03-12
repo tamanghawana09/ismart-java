@@ -95,4 +95,7 @@ public class StudentsService {
     public List<Students> getStudentsByUserId(Long userId){
         return studentRepository.findByUserId(userId);
     }
+    public List<Students> getStudentsByUsername(String username){
+        return studentRepository.findByUserUsername(username);
+    }
 }
